@@ -1,31 +1,289 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Author’s Purpose (غرض الكاتب)</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>الاستعداد لاختبار ستيب | دليل مبسّط + تمارين</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f8fb; --surface:#fff; --ink:#1f2a37; --muted:#64748b;
+    --primary:#0077b6; --primary2:#00b4d8;
+    --success:#2a9d8f; --warn:#f59e0b; --danger:#e63946; --info:#6366f1;
+    --radius:14px; --shadow:0 8px 20px rgba(15,23,42,.08)
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 "Tajawal",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial}
+  header{
+    background:linear-gradient(120deg,var(--primary),var(--primary2));
+    color:#fff; padding:28px 16px 24px; text-align:center; position:sticky; top:0; z-index:10
+  }
+  header h1{margin:0 0 6px;font-size:26px}
+  header p{margin:0;opacity:.95}
+  .wrap{max-width:1100px;margin:auto;padding:18px}
+
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    background:var(--surface);padding:12px;border-radius:12px;box-shadow:var(--shadow);margin:18px 0}
+  .toggle{background:#eef5ff;border:1px solid #cfe2ff;color:#0b3b73;border-radius:999px;padding:8px 12px;cursor:pointer}
+  .search{padding:10px 12px;border:1px solid #e3e8ef;border-radius:10px;min-width:240px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+  .card h2{margin:0 0 8px;color:var(--primary);font-size:20px}
+  .card h3{margin:0 0 6px;color:#0f3a58}
+  .pill{display:inline-block;background:#ecf7ff;color:#0b3b73;padding:4px 10px;border-radius:999px;font-size:12px;margin-inline-end:6px}
+  .note{background:#f1f5f9;border-radius:10px;padding:10px;margin-top:8px}
+  .list{margin:0;padding-inline-start:18px}
+  .list li{margin:.25rem 0}
+  figure{margin:0}
+  .diagram{width:100%;height:auto;display:block;border-radius:10px}
+
+  /* quiz */
+  .quiz-card{border-inline-start:5px solid #e5e7eb}
+  .opt{background:#f7f9fc;border:1px solid #e4eaf2;padding:10px 12px;border-radius:10px;display:flex;gap:10px;margin:8px 0}
+  .opt input{margin-top:4px}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .btn{border:none;padding:9px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+  .btn.primary{background:var(--primary);color:#fff}
+  .btn.ghost{background:#eef4ff;color:#0b3b73}
+  .btn.reset{background:#fff0d6;color:#7a3d00}
+  .explain{display:none;font-size:14px;margin-top:6px}
+  .quiz-card[data-state="correct"]{border-inline-start-color:var(--success)}
+  .quiz-card[data-state="wrong"]{border-inline-start-color:var(--danger)}
+
+  .scorebar{height:10px;background:#e9edf5;border-radius:999px;overflow:hidden;margin:14px 0 6px}
+  .scorebar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--success),#7ae582)}
+  .muted{color:var(--muted)}
+  mark{background:#ffef9c;padding:0 3px}
+
+  footer{background:#111827;color:#e5e7eb;text-align:center;padding:18px;margin-top:26px;font-size:14px}
+  @media (prefers-color-scheme: dark){
+    body{background:#0b1220;color:#e5e7eb}
+    header{box-shadow:0 1px 0 rgba(255,255,255,.06)}
+    .card{background:#101827;color:#e5e7eb}
+    .toolbar{background:#101827;border:1px solid #1f2937}
+    .search{background:#0f172a;color:#e5e7eb;border-color:#1f2937}
+    .opt{background:#0f172a;border-color:#1f2937}
+    .note{background:#0f172a}
+  }
+  .hide-ar .ar{display:none}
+</style>
 </head>
 <body>
 
 <header>
-  <h1>📘 Author’s Purpose (غرض الكاتب)</h1>
-  <p>دليل تعليمي + تمارين تفاعلية</p>
+  <h1>الاستعداد لاختبار ستيب (STEP Test)</h1>
+  <p>دليل تعليمي مبسّط + تمارين تفاعلية — مناسب للجوال والكمبيوتر</p>
 </header>
 
 <div class="wrap">
 
-  <section class="card">
-    <h2>🔑 ما هو Author’s Purpose؟</h2>
+  <!-- أدوات -->
+  <div class="toolbar">
+    <div class="group">
+      <button id="toggleTrans" class="toggle">👁️ إظهار/إخفاء الترجمة</button>
+    </div>
+    <input id="search" class="search" type="search" placeholder="ابحث داخل الصفحة (English / عربي) …" />
+  </div>
+
+  <!-- نظرة عامة على مهارات ستيب -->
+  <div class="grid">
+    <div class="card">
+      <h2>🔎 نظرة عامة</h2>
+      <p>هذا الموقع منصة تعليمية مبسّطة لمساعدة الطالب على الاستعداد لقسم <b>استيعاب المقروء</b> في اختبار <b>ستيپ (STEP)</b> عبر شرح منظم، أمثلة واقعية، و<strong>تمارين تفاعلية</strong>.</p>
+      <div class="note"><b>Tip:</b> جرّب البحث العلوي لتمييز الكلمات المهمة بسرعة.</div>
+    </div>
+
+    <div class="card">
+      <h2>🧭 مهارات مهمة في ستيب</h2>
+      <ul class="list">
+        <li><span class="en">Main Idea</span> <span class="ar">(الفكرة الرئيسية)</span></li>
+        <li><span class="en">Supporting Details</span> <span class="ar">(تفاصيل داعمة)</span></li>
+        <li><span class="en">Vocabulary in Context</span> <span class="ar">(معاني الكلمات من السياق)</span></li>
+        <li><span class="en">Inference & Implicit Meaning</span> <span class="ar">(الاستنتاج والمعنى الضمني)</span></li>
+        <li><span class="en">Tone & Attitude</span> <span class="ar">(النبرة/الموقف)</span></li>
+        <li><span class="en">Purpose & Organization</span> <span class="ar">(الهدف والتنظيم)</span></li>
+      </ul>
+    </div>
+
+    <!-- خريطة توضيحية مدمجة -->
+    <div class="card">
+      <h2>🗺️ خريطة ذهنية (SVG)</h2>
+      <figure>
+        <svg class="diagram" viewBox="0 0 800 320" aria-label="STEP overview diagram">
+          <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0077b6"/><stop offset="1" stop-color="#00b4d8"/></linearGradient></defs>
+          <rect x="0" y="0" width="800" height="320" fill="url(#g)" opacity=".12"/>
+          <circle cx="135" cy="160" r="60" fill="#fff" stroke="#0096c7" stroke-width="3"/>
+          <text x="135" y="156" text-anchor="middle" font-size="16" font-weight="700" fill="#0b3b73">STEP</text>
+          <text x="135" y="176" text-anchor="middle" font-size="12" fill="#0b3b73">Reading</text>
+          <!-- أفرع -->
+          <g font-size="12" fill="#0b3b73">
+            <rect x="280" y="40" rx="8" width="180" height="40" fill="#ecf7ff" stroke="#0096c7"/><text x="370" y="65" text-anchor="middle">Main Idea (فكرة رئيسية)</text>
+            <rect x="280" y="100" rx="8" width="220" height="40" fill="#fff4df" stroke="#ffb703"/><text x="390" y="125" text-anchor="middle">Supporting Details (تفاصيل)</text>
+            <rect x="280" y="160" rx="8" width="210" height="40" fill="#eef0ff" stroke="#6366f1"/><text x="385" y="185" text-anchor="middle">Vocabulary in Context</text>
+            <rect x="280" y="220" rx="8" width="240" height="40" fill="#e9f7f1" stroke="#2a9d8f"/><text x="400" y="245" text-anchor="middle">Inference (استنتاج)</text>
+          </g>
+          <line x1="195" y1="160" x2="280" y2="60" stroke="#0096c7" stroke-width="3"/>
+          <line x1="195" y1="160" x2="280" y2="120" stroke="#ffb703" stroke-width="3"/>
+          <line x1="195" y1="160" x2="280" y2="180" stroke="#6366f1" stroke-width="3"/>
+          <line x1="195" y1="160" x2="280" y2="240" stroke="#2a9d8f" stroke-width="3"/>
+        </svg>
+        <figcaption class="muted">ملخص بصري للمهارات الأكثر شيوعًا في أسئلة ستيب (قسم القراءة)</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- درس نموذجي مختصر -->
+  <div class="card" style="margin-top:18px">
+    <h2>📘 درس نموذجي مختصر</h2>
     <p>
-      Author’s Purpose = غرض الكاتب.  
-      إما: to inform (ليعلِم/يشرح) · to persuade (ليقنع/يؤثر) ·  
-      to entertain (ليسلي/يحكي) · to express (ليُعبّر) · to compare (ليقارن).
+      ابدأ بتحديد <b class="en">Topic</b> <span class="ar">(الموضوع)</span> ثم <b class="en">Main Idea</b> <span class="ar">(الفكرة الرئيسية)</span> عبر أول جملة وآخر جملة.  
+      بعد ذلك استخرج <b class="en">Supporting Details</b> <span class="ar">(التفاصيل الداعمة)</span> التي تشرح الفكرة.
     </p>
-    <img src="images/purpose-map.svg" alt="Purpose Map">
-  </section>
+    <ul class="list">
+      <li><span class="en">Signal words</span> <span class="ar">(كلمات إشارة)</span>: <span class="en">First, Next, Because, Therefore, However</span> <span class="ar">(أولًا، بعد ذلك، لأن، لذلك، ومع ذلك)</span></li>
+      <li><span class="en">Skim & Scan</span> <span class="ar">(تصفّح سريع وتتبّع كلمات)</span> لتحديد الفكرة قبل التفاصيل.</li>
+    </ul>
+    <div class="note"><b>مثال نصي قصير:</b> “Many deserts have plants that store water… This adaptation helps them survive.”  
+      <br>الملخّص: <span class="en">Main Idea</span> <span class="ar">= تكيف النباتات في الصحراء يساعدها على البقاء.</span>
+    </div>
+  </div>
+
+  <!-- تمارين -->
+  <h2 style="margin:22px 6px;color:#0b3b73">🧪 تمارين تفاعلية</h2>
+  <div class="scorebar"><i id="scorefill"></i></div>
+  <div class="muted" id="scoretext">النتيجة: 0 / 5</div>
+
+  <div class="grid" id="practice">
+    <!-- Q1 -->
+    <div class="card quiz-card" data-answer="main-idea">
+      <h3>1) ما أفضل وصف للفكرة الرئيسية <span class="en">(Main Idea)</span>؟</h3>
+      <label class="opt"><input type="radio" name="q1" value="detail"> جملة تفصيلية صغيرة مذكورة مرة واحدة</label>
+      <label class="opt"><input type="radio" name="q1" value="main-idea"> الفكرة الأوسع التي تلخّص النص كله</label>
+      <label class="opt"><input type="radio" name="q1" value="example"> مثال توضيحي فقط</label>
+      <div class="actions">
+        <button class="btn primary check">تصحيح</button>
+        <button class="btn ghost reveal">إظهار الإجابة</button>
+        <button class="btn reset">إعادة</button>
+      </div>
+      <div class="explain">الإجابة الصحيحة: <b>الفكرة الأوسع</b> لأنها تمثل ما يدور حوله النص كله.</div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="card quiz-card" data-answer="supporting">
+      <h3>2) أي عبارة تُعدّ <span class="en">Supporting Detail</span>؟</h3>
+      <label class="opt"><input type="radio" name="q2" value="supporting"> ذكر نسبة/رقم يدعم الفكرة الرئيسية</label>
+      <label class="opt"><input type="radio" name="q2" value="opinion"> رأي شخصي لا علاقة له بالموضوع</label>
+      <label class="opt"><input type="radio" name="q2" value="offtopic"> معلومة خارج النص</label>
+      <div class="actions">
+        <button class="btn primary check">تصحيح</button>
+        <button class="btn ghost reveal">إظهار الإجابة</button>
+        <button class="btn reset">إعادة</button>
+      </div>
+      <div class="explain">التفاصيل الداعمة تقدّم <b>دليلًا/توضيحًا</b> يثبت الفكرة الرئيسية.</div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="card quiz-card" data-answer="context">
+      <h3>3) لمعرفة معنى كلمة مجهولة، أفضل استراتيجية هي <span class="en">Vocabulary in Context</span>…</h3>
+      <label class="opt"><input type="radio" name="q3" value="context"> استخدام السياق قبل الرجوع للمعجم</label>
+      <label class="opt"><input type="radio" name="q3" value="guess"> التخمين العشوائي</label>
+      <label class="opt"><input type="radio" name="q3" value="ignore"> تجاهل الكلمة تمامًا</label>
+      <div class="actions">
+        <button class="btn primary check">تصحيح</button>
+        <button class="btn ghost reveal">إظهار الإجابة</button>
+        <button class="btn reset">إعادة</button>
+      </div>
+      <div class="explain">اقرأ الجملة قبل وبعد الكلمة، وابحث عن مرادفات/أضداد/أمثلة.</div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="card quiz-card" data-answer="inference">
+      <h3>4) الاستنتاج <span class="en">(Inference)</span> يعني…</h3>
+      <label class="opt"><input type="radio" name="q4" value="inference"> فهم معنى غير مذكور صراحة بالاعتماد على الدلائل</label>
+      <label class="opt"><input type="radio" name="q4" value="quote"> نقل جملة كما هي</label>
+      <label class="opt"><input type="radio" name="q4" value="title"> قراءة العنوان فقط</label>
+      <div class="actions">
+        <button class="btn primary check">تصحيح</button>
+        <button class="btn ghost reveal">إظهار الإجابة</button>
+        <button class="btn reset">إعادة</button>
+      </div>
+      <div class="explain">نجمع بين <b>معلومات النص</b> و<b>خبرتنا</b> للوصول لمعنى ضمني.</div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="card quiz-card" data-answer="tone">
+      <h3>5) كلمة <span class="en">However</span> غالبًا تشير إلى…</h3>
+      <label class="opt"><input type="radio" name="q5" value="addition"> إضافة معلومات مشابهة</label>
+      <label class="opt"><input type="radio" name="q5" value="contrast"> انتقال لمعلومة تعارض ما قبلها (تباين)</label>
+      <label class="opt"><input type="radio" name="q5" value="sequence"> تسلسل زمني</label>
+      <div class="actions">
+        <button class="btn primary check">تصحيح</button>
+        <button class="btn ghost reveal">إظهار الإجابة</button>
+        <button class="btn reset">إعادة</button>
+      </div>
+      <div class="explain"><b>However</b> = تباين/استدراك (Contrast).</div>
+    </div>
+  </div>
+
+  <div class="card note">
+    <b>نصيحة للمذاكرة:</b> خُذ نصًا قصيرًا يوميًا وحدد <span class="en">Topic</span> و<span class="en">Main Idea</span> و<span class="en">Signal Words</span> خلال 5 دقائق.
+  </div>
 
 </div>
 
-<script src="script.js"></script>
+<footer>
+  &copy; 2025 — دليل الاستعداد لاختبار ستيب | نسخة تعليمية مجانية
+</footer>
+
+<script>
+  // Toggle translation
+  const toggleBtn = document.getElementById('toggleTrans');
+  const LSKEY = 'step_show_ar';
+  let showAr = (localStorage.getItem(LSKEY) ?? 'true') === 'true';
+  function applyTrans(){ document.body.classList.toggle('hide-ar', !showAr); }
+  toggleBtn.addEventListener('click', ()=>{ showAr=!showAr; localStorage.setItem(LSKEY, showAr); applyTrans(); });
+  applyTrans();
+
+  // Search highlight
+  const searchInput = document.getElementById('search');
+  function clearMarks(){ document.querySelectorAll('mark').forEach(m=>{ const t=document.createTextNode(m.textContent); m.parentNode.replaceChild(t,m); }); }
+  function highlight(q){
+    const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+    document.querySelectorAll('.wrap .card').forEach(card=>{
+      card.childNodes.forEach(node=>{
+        if(node.nodeType===3){
+          const text=node.nodeValue, frag=document.createDocumentFragment(); let last=0, m;
+          while((m=rx.exec(text))){
+            frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+            const mark=document.createElement('mark'); mark.textContent=m[0]; frag.appendChild(mark);
+            last = m.index + m[0].length;
+          }
+          frag.appendChild(document.createTextNode(text.slice(last)));
+          if(frag.childNodes.length>1){ node.parentNode.replaceChild(frag,node); }
+        }
+      });
+    });
+  }
+  searchInput.addEventListener('input', ()=>{ clearMarks(); const q=searchInput.value.trim(); if(q.length>=2) highlight(q); });
+
+  // Quiz logic
+  const quizzes=[...document.querySelectorAll('.quiz-card')];
+  const scoreFill=document.getElementById('scorefill');
+  const scoreText=document.getElementById('scoretext');
+  function updateScore(){ const t=quizzes.length; let c=0; quizzes.forEach(q=>{ if(q.dataset.state==='correct') c++; }); scoreFill.style.width=Math.round(c/t*100)+'%'; scoreText.textContent=`النتيجة: ${c} / ${t}`; }
+  quizzes.forEach((q,idx)=>{
+    const name=`q${idx+1}`, check=q.querySelector('.check'), reveal=q.querySelector('.reveal'), reset=q.querySelector('.reset'), explain=q.querySelector('.explain');
+    function val(){ return (q.querySelector(`input[name="${name}"]:checked`)||{}).value; }
+    check.addEventListener('click', ()=>{
+      const v=val(); if(!v){ alert('اختر إجابة أولًا'); return; }
+      q.dataset.state = v===q.dataset.answer ? 'correct':'wrong'; explain.style.display='block'; updateScore(); q.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+    reveal.addEventListener('click', ()=>{ const a=q.dataset.answer; const i=q.querySelector(`input[value="${a}"]`); if(i) i.checked=true; q.dataset.state='correct'; explain.style.display='block'; updateScore(); });
+    reset.addEventListener('click', ()=>{ q.querySelectorAll(`input[name="${name}"]`).forEach(r=>r.checked=false); q.dataset.state=''; explain.style.display='none'; updateScore(); });
+  });
+  updateScore();
+</script>
 </body>
 </html>
